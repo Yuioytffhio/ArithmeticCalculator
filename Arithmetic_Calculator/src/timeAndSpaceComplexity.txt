@@ -1,0 +1,13 @@
+Time complexity:
+Each line has a length of n, so everytime the program is iterating through the string
+that has a complexity of O(n). Furthermore, every operation performed on the stack has
+a constant time complexity of O(1). In the expandCapacity() method, in the Stack class,
+the capacity is extended by doubling the size, this method minimizes the amount of times we
+have to resize the array, which makes it more efficient and takes O(n) time.
+Therefore, the time complexity of this algorithm is O(n).
+
+Space complexity:
+The stacks must contain enough space for the n characters in the expression.
+The space required for the other variables as well as that of the input and output is a
+constant space complexity of O(1).
+Therefore, the space complexity of this algorithm is O(n).

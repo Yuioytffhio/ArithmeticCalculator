@@ -1,0 +1,99 @@
+Algorithm ArithmeticCalculator(str)
+Input: String str, contains the expression to evaluate
+Output: result
+
+// Create two stacks, one for the operators and one for the operands
+operandStack = Stack()
+operatorStack = Stack()
+n = length of str
+i = 0
+
+while i < n do
+    char c = str.charAt(i)
+    
+    if c == ' ' then
+        i = i + 1
+        continue
+    
+    if c is a digit then
+        initialize a variable num to 0
+        while i < n and str.charAt(i) is a digit do
+            num = num * 10 + (str.charAt(i) - '0') // convert into an integer
+            i = i + 1
+        operandStack.push(num)
+        continue // skip the increment of i at the end of the loop to avoid skipping a character
+    
+    if c == '(' then
+        operatorStack.push(c)
+
+    else if c == ')' then
+        while operatorStack.peek() != '(' do
+            performOperation(operandStack, operatorStack)
+        operatorStack.pop() // pop the '(' from the stack
+
+    else if c is an operator then
+        while not operatorStack.isEmpty() and precedence(operatorStack.peek()) >= precedence(c) do
+            performOperation(operandStack, operatorStack)
+        operatorStack.push(c)
+    
+    i = i + 1
+
+while not operatorStack.isEmpty() do
+    performOperation(operandStack, operatorStack)
+
+return operandStack.pop()
+
+// Function to perform operations
+Function performOperation(operandStack, operatorStack)
+
+	// The right operand would be at the top of the stack, on top of left operand because of how left is pushed first and so when right is pushed it's 	// on top
+	rightOperand = operandStack.pop()
+	leftOperand = operandStack.pop()
+	operator = operatorStack.pop()
+	result = applyOperator(leftOperand, rightOperand, operator)
+	operandStack.push(result)
+
+
+// Helper function to apply the operator on the operands
+Function applyOperator(leftOperand, rightOperand, operator)
+	if operator == '+' then
+		return leftOperand + rightOperand
+	if operator == '-' then 
+		return leftOperand - rightOperand
+	if operator ==  '*' then 
+		return leftOperand * rightOperand
+	if operator == '/' then 
+		return leftOperand / rightOperand
+	if operator == '^' then
+        	return leftOperand ^ rightOperand
+	if operator == '>' then
+        	return leftOperand > rightOperand ? 1 : 0
+	if operator == '>=' then
+        	return leftOperand >= rightOperand ? 1 : 0
+	if operator == '<' then
+        	return leftOperand < rightOperand ? 1 : 0
+	if operator == '<=' then
+        	return leftOperand <= rightOperand ? 1 : 0
+	if operator == '==' then
+        	return leftOperand == rightOperand ? 1 : 0
+	if operator == '!=' then
+        	return leftOperand != rightOperand ? 1 : 0
+
+
+// Helper function to determine the precedence of the operator
+Function precedence(operator)
+	if operator == '+' or operator == '-' then
+        	return 1
+	if operator == '*' or operator == '/' then
+        	return 2
+	if operator == '^' then
+        	return 3
+	if operator == '>' or operator == '>=' or operator == '<' or operator == '<=' then
+        	return 4
+	if operator == '==' or operator == '!=' then
+        	return 5
+	return 0
+
+// Helper function to verify if c is an operator
+function isOperator
+	return c == '+' or c == '-' or c == '/' or c == '^' or c == '>' or c == '>=' or c == '<' or c == '<=' or c == '='
